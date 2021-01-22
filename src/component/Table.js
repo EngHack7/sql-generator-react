@@ -16,6 +16,12 @@ function Table() {
         setTable(tables)
     }
 
+    const deleteRow = (row) => {
+        const tabels = [ ...table]
+        const newTable = tabels.filter(r => r.id !== row.id )
+        setTable(newTable)
+    }
+
     React.useEffect(()=>{
 
         var sgr = `create table ${tableName} (`;
@@ -25,7 +31,7 @@ function Table() {
             if(table[index].primary){
                 sgr +=' PRIMARY KEY ,'
             }else if(table[index].null_value)
-           {sgr += table[index].null_value + ' ,\n'}else{sgr += ' ,\n'}
+           {sgr += 'NOT NULL' + ' ,\n'}else{sgr += ' ,\n'}
         }
         sgr += ");";
         console.log("effect work", sgr);
@@ -48,12 +54,13 @@ function Table() {
                     <th scope="row1" >name</th>
                     <th scope="row1" >data-type</th>
                     <th scope="row1" >primary-key</th>
-                    <th scope="row1" >null</th>
+                    <th scope="row1" >Not Null</th>
+                    <th scope="row1" >Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                    
-                   {table.map((row,index) => <tr  key={row.id} ><Fields key={row.id} updateRow={updateRow} row={row} >{row.name}</Fields></tr> )}
+                   {table.map((row,index) => <tr  key={row.id} ><Fields key={row.id} delete={deleteRow} updateRow={updateRow} row={row} >{row.name}</Fields></tr> )}
                    
                    <tr><td><button className="btn btn-primary" onClick={()=>{setTable([ ...table,emptyRow])}} >new row</button></td></tr>
 

@@ -45,6 +45,10 @@ function Fields(props) {
     };
     updateRow(newR);
   };
+
+  const submitD =() =>{
+      props.delete(row)
+  }
   return (
     <React.Fragment>
       <td>{row.id}</td>
@@ -92,6 +96,8 @@ function Fields(props) {
       <td>
         <button onClick={submitR} className="btn btn-primary m-2">
           add
+        </button> <button onClick={submitD} className="btn btn-danger m-2">
+          delete
         </button>
       </td>
     </React.Fragment>
